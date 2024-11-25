@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Item {{id}} Details</title>
+    {% include "header.html" %}
+    <link href='/static/css/jquery-ui.min.css' rel="stylesheet" />
+</head>
+<body>
+    <div class="container">
+
+    <h1><a href="{{ url_for('read_home', id=id) }}">Item ID: {{ id }}</a></h1>
+
+    <h3>Some list</h3>
+    <p>
+    {% for item in items %}
+    * {{ item }} <br/>
+    {% endfor %}
+    </p>
+
+    <hr/>
+
+    <form method="post"  id="form1">
+        <div class="input-group mb-3 row">
+            <label class="control-label col-sm-2" for="name">Name:</label>
+            <div class="col-sm-10">
+                <input class='form-control' type="text" name="name" id="name"
+                        placeholder="your name" value="João Ratão" />
+            </div>
+        </div>
+        <div class="input-group mb-3 row">
+            <label class="control-label col-sm-2" for="phone">Phone:</label>
+            <div class="col-sm-8">
+                <input class='form-control' type="text" name="phone" id="phone"
+                        placeholder="your Phone" value="923456789" />
+            </div>
+        </div>
+        <div class="input-group mb-3 row">
+            <label class="control-label col-sm-2" for="age">Age:</label>
+            <div class="col-sm-2">
+                <input class='form-control' type="number" name="age" id="age"
+                        placeholder="age" min="1" max="99" value="8" />
+            </div>
+        </div>
+
+        <div class="input-group mb-3 row">
+            <label class="control-label col-sm-2" for="comments">Comments:</label>
+            <div class="col-sm-10">
+                <textarea class='form-control' name="comments" id="comments"></textarea><br />
+            </div>
+        </div>
+
+        <div class="input-group mb-3 row">
+            <label class="control-label col-sm-2" for="birthday">Date:</label>
+            <div class="col-sm-2">
+                <input class='form-control dtpick' type="text" name="birthday" id="birthday"
+                        placeholder="dd-mm-yyyy" value="13-02-2020" />
+            </div>
+        </div>
+
+        <div class="input-group mb-3 row">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button class='btn btn-success' type="submit">Test</button>
+            </div>
+        </div>
+    </form>
+    <div class="mt-4">
+        <hr />[<a href="/">HOME</a>] [<a href="/upload">UPLOAD</a>]
+    <div>
+ </div>
+</body>
+{% include "footer.html" %}
+<script src='/static/js/jquery-ui.min.js'></script>
+<script src='/static/js/datepicker-pt.js'></script>
+<script>
+$(function() {
+
+$(".dtpick" ).datepicker({ dateFormat: 'dd-mm-yy'  });
+
+$('#form1').on('submit', function (e) { 
+    e.preventDefault();  //prevent form from submitting
+    let  data = $("#form1 :input").serializeArray();
+    //console.log(data);
+    let pData = JSON.stringify(data);
+    alert(pData);
+    
+    $.ajax({
+        url: "/api/echo",
+        data: pData,
+        processData: false,
+        contentType: "application/json",
+        type: 'POST',
+        success: function (data) {
+            alert(JSON.stringify(data));
+        },
+        error: function (xhrRequest, status, error) {
+            alert(JSON.stringify(xhrRequest));
+        }
+    });
+});
+});
+</script>
+</html>

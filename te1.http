@@ -1,0 +1,107 @@
+@host = http://localhost:8080
+
+GET {{host}}/
+
+###
+POST {{host}}/prot 
+Content-Type: application/json
+Authorization: Basic user1:123
+
+{
+    "name": "joe",
+    "age": 33
+}
+
+
+###
+GET {{host}}/items
+
+###
+GET {{host}}/items/1
+
+###
+PUT {{host}}/items/1
+Content-Type: application/json
+
+{
+    "id": 1,
+    "name": "joana",
+    "price": 39.45,
+    "is_offer": true
+}
+
+
+
+###
+POST  {{host}}/items
+Content-Type: application/json
+
+{
+    "name": "manuel",
+    "price": 1.23,
+    "is_offer": true
+}
+
+###
+DELETE  {{host}}/items/4
+
+###
+POST  {{host}}/items
+Content-Type: application/json
+
+{
+    "name": "maria",
+    "price": 12.35,
+    "is_offer": false
+}
+
+###
+POST  {{host}}/items
+Content-Type: application/json
+
+{
+    "name": "manuel",
+    "price": 23.78,
+    "is_offer": false
+}
+
+###
+DELETE {{host}}/items/4
+
+###
+POST  {{host}}/auth/login
+Content-Type: application/json
+
+{
+    "uid": "demo",
+    "pwd": "123"
+}
+
+###
+
+
+@tok1 = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkZW1vIiwiaWQiOjExLCJleHAiOjE3MjU2MzM4OTN9.K_XBhWPlz_tJLIYcpRqFA1y6dnm4akA8ewar33dDJdA
+
+POST  {{host}}/auth/chktoken
+Content-Type: application/json
+
+{
+    "token": "{{tok1}}",
+    "error": null
+}
+
+###
+GET  {{host}}/auth/rnd
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkZW1vIiwiaWQiOjExLCJleHAiOjE3MjU2MzcxMDV9.uv5RHssvY_8XPyZYpLzSwHA3P2rta35yRC3GpSPCiK8
+
+###
+GET  {{host}}/random-int
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkZW1vIiwiaWQiOjExLCJleHAiOjE3MjU2MzcxMDV9.uv5RHssvY_8XPyZYpLzSwHA3P2rta35yRC3GpSPCiK8
+
+
+
+###
+GET {{host}}/api/bonus
+
+###
+GET {{host}}/api/bonus/JONES5

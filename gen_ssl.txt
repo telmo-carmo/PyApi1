@@ -1,0 +1,16 @@
+#!/bin/sh
+
+# Openssl for win 64 binary at:
+# https://kb.firedaemon.com/support/solutions/articles/4000121705
+
+
+## PT , Lisboa, Lisboa , NB, DSI , localhost  and SANS ext
+#openssl req -x509 -newkey rsa:4096 -nodes -sha256 -out server.crt -keyout server.key -days 3650
+## -subj "/C=PT/ST=Lisboa/L=Lisboa/O=NB/OU=DSI/CN=localhost"  -addext "subjectAltName=DNS:localhost"
+
+##openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -sha256 -days 3650 -nodes -subj "/C=XX/ST=StateName/L=CityName/O=CompanyName/OU=CompanySectionName/CN=localhost"
+
+
+openssl x509 -noout -text -in server.crt
+
+openssl req -x509 -newkey rsa:4096 -nodes -sha256 -out server.crt -keyout server.key -days 365 -subj "/C=PT/ST=Lisboa/L=Lisboa/O=NB/OU=DSI/CN=localhost"  -addext "subjectAltName=DNS:localhost"
