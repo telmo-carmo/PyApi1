@@ -1,5 +1,6 @@
 
 git credential-manager  github login
+(in popup prompt choose 'telmo-carmo' )
 
 git config --global user.name "Telmo Carmo"
 git config --global user.email "telmo.carmo@gmail.com"
