@@ -43,3 +43,11 @@ git config --global --unset credential.helper
 and 
 
 git config --global credential.helper manager
+
+---
+
+// Force-Push to the Remote Main Branch:
+
+git commit -m "Force-pushing <filename>"
+git push -f origin main
+
