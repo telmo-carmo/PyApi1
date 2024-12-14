@@ -5,7 +5,10 @@ Jinja2==3.1.4
 PyJWT==2.10.1
 python-multipart==0.0.19
 SQLAlchemy==2.0.36
-uvicorn==0.32.1
+uvicorn==0.33.0
+
+#pydantic==2.10.3
+#pydantic_core==2.27.1
 
 #pyodbc==5.2.0
 #cx_Oracle==8.3.0
