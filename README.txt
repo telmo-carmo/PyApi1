@@ -30,6 +30,11 @@ git push -u origin main
 
 remote: Permission to telmo-carmo/PyApi1.git denied to telmo-carmo_bdsogit.
 
+or add:
+
+
+git config --global http.sslBackend schannel
+
 ---
 
 credential.helper=manager
