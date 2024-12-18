@@ -80,7 +80,7 @@ Content-Type: application/json
 ###
 
 
-@tok1 = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkZW1vIiwiaWQiOjExLCJleHAiOjE3MjU2MzM4OTN9.K_XBhWPlz_tJLIYcpRqFA1y6dnm4akA8ewar33dDJdA
+@tok1 = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkZW1vIiwiaWQiOjExLCJleHAiOjE3MzQ1Mzc2ODV9.E3w9S4_tkEJaswIMJyKvxXBZbpXf2F91xVJenKttaY0
 
 POST  {{host}}/auth/chktoken
 Content-Type: application/json
@@ -92,7 +92,7 @@ Content-Type: application/json
 
 ###
 GET  {{host}}/auth/rnd
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkZW1vIiwiaWQiOjExLCJleHAiOjE3MjU2MzcxMDV9.uv5RHssvY_8XPyZYpLzSwHA3P2rta35yRC3GpSPCiK8
+Authorization: Bearer {{tok1}}
 
 ###
 GET  {{host}}/random-int
