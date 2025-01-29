@@ -19,8 +19,7 @@ uvicorn main:app --reload
 
 import datetime, os
 import json
-import logging
-from logging.handlers import TimedRotatingFileHandler
+
 import random
 import platform
 import sys
@@ -38,6 +37,7 @@ from sqlalchemy.orm import sessionmaker, Session, declarative_base
 import jwt
 
 from models import ItemRequest, ItemResponse, LoginReq, LoginResp
+from applogger import logger
 
 # Define database connection details (modify as needed)
 SQLALCHEMY_DATABASE_URL = "sqlite:///./mydb1.db"
@@ -53,25 +53,9 @@ SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 Base = declarative_base()
 
 
-App_ver = 1.04
-## config logging:
-log_formatter = logging.Formatter('%(asctime)s ; %(levelname)s ; %(message)s')
-console_handler = logging.StreamHandler()
-console_handler.setFormatter(log_formatter)
+App_ver = 1.05
 
-file_handler = TimedRotatingFileHandler("PyApi1.log", when="midnight", interval=1, backupCount=7) 
-#file_handler = logging.FileHandler("PyApi1.log",encoding="UTF-8")
-
-log_formatter = logging.Formatter('%(asctime)s ; %(levelname)s ; %(filename)s  ; %(message)s')
-file_handler.setFormatter(log_formatter)
-
-logger = logging.getLogger("PyApi1")        #  logger = logging.getLogger(__name__) # if only used in main.py
-logger.setLevel(logging.DEBUG)
-
-logger.addHandler(console_handler)
-logger.addHandler(file_handler)
-
-logger.info('Info  for App ver %.2f', App_ver)
+logger.info('App version %.2f with db: %s', App_ver,SQLALCHEMY_DATABASE_URL)
 ##----------
 
 app = FastAPI()

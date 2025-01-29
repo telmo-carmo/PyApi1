@@ -32,7 +32,6 @@ remote: Permission to telmo-carmo/PyApi1.git denied to telmo-carmo_bdsogit.
 
 or add:
 
-
 git config --global http.sslBackend schannel
 
 ---
