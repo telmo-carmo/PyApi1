@@ -17,7 +17,7 @@ Authorization: Basic user1:123
 GET {{host}}/items
 
 ###
-GET {{host}}/items/1
+GET {{host}}/items/2
 
 ###
 PUT {{host}}/items/1
