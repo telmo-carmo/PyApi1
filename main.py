@@ -5,7 +5,7 @@ https://pyjwt.readthedocs.io/en/latest/usage.html#registered-claim-names
 
 ---
 
-pip install -U fastapi uvicorn PyJWT Jinja2 python-multipart sqlalchemy
+pip install -U fastapi uvicorn PyJWT Jinja2 python-multipart sqlalchemy psycopg2
 
 --
 
