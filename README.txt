@@ -55,7 +55,7 @@ git config --global credential.helper manager
 git commit -m "Force-pushing <filename>"
 git push -f origin main
 
-also:
+also for using NB git account do:
 git clone https://telmo-carmo_bdsogit@github.com/telmo-carmo_bdsogit/reactweb1.git
 
 
