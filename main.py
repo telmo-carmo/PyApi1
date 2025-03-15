@@ -5,7 +5,7 @@ https://pyjwt.readthedocs.io/en/latest/usage.html#registered-claim-names
 
 ---
 
-pip install -U fastapi uvicorn PyJWT Jinja2 python-multipart sqlalchemy psycopg2
+pip install -U fastapi uvicorn PyJWT Jinja2 python-multipart sqlalchemy psycopg2 python-dotenv
 
 --
 
@@ -39,7 +39,7 @@ import jwt
 from models import ItemRequest, ItemResponse, LoginReq, LoginResp
 from applogger import logger
 
-load_dotenv()
+load_dotenv()  # load values from .env file
 
 # Define database connection details (modify as needed)
 SQLALCHEMY_DATABASE_URL = os.getenv("DATABASE_URL", "sqlite:///./test.db")
@@ -297,6 +297,26 @@ def delete_bonus(item_id: str, db: Session = Depends(get_db)):
     db.delete(db_item)
     db.commit()
     return {"ok": True}
+
+@app.put("/api/bonus/{item_id}", response_model=Bonus)
+def update_bonus(item_id: str, bitem: Bonus,db: Session = Depends(get_db)):
+    db_item = db.query(Bonus).filter(Bonus.ename == item_id).first()
+    if db_item is None:
+        raise HTTPException(status_code=404, detail="Bonus not found")
+    db_item.job = bitem.job
+    db_item.sal = bitem.sal
+    db_item.comm = bitem.comm
+    db.commit()
+    return db_item
+
+@app.post("/api/bonus", response_model=Bonus)
+def create_bonus(item: Bonus, db: Session = Depends(get_db)):
+    db_item = Bonus(ename=item.ename, job=item.job, sal=item.sal, comm=item.comm)
+    db.add(db_item)
+    db.commit()
+    db.refresh(db_item)
+    return db_item
+
 
 
 if __name__ == "__main__":
