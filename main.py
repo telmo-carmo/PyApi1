@@ -29,7 +29,7 @@ from fastapi.responses import HTMLResponse
 from fastapi.security import HTTPBasic, HTTPBasicCredentials, OAuth2PasswordBearer
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
-
+from dotenv import load_dotenv
 from typing import Optional, Union
 
 from sqlalchemy import create_engine, Column, Float, String, Boolean, Integer
@@ -39,8 +39,11 @@ import jwt
 from models import ItemRequest, ItemResponse, LoginReq, LoginResp
 from applogger import logger
 
+load_dotenv()
+
 # Define database connection details (modify as needed)
-SQLALCHEMY_DATABASE_URL = "sqlite:///./mydb1.db"
+SQLALCHEMY_DATABASE_URL = os.getenv("DATABASE_URL", "sqlite:///./test.db")
+
 JWT_SECRET_KEY = "0d73b71d9d865136056f7365160edcef0db2440e94f56ba4e7f613e2d5ef91d7"  # 256 bit sk
 JWT_ALGORITHM = "HS256"
 UPLOAD_PATH = "C:/Uploads/Testes/" if platform.system() == "Windows"else "/tmp/Testes/"
@@ -285,7 +288,15 @@ async def get_one_bonus(item_id: str, session: Session = Depends(get_session_db)
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"bonus ename={item_id} not found")
     return item
 
+@app.delete("/api/bonus/{item_id}", response_model=dict)
+def delete_bonus(item_id: str, db: Session = Depends(get_db)):
+    db_item = db.query(Bonus).filter(Bonus.ename == item_id).first()
+    if db_item is None:
+        raise HTTPException(status_code=404, detail="Item not found")
 
+    db.delete(db_item)
+    db.commit()
+    return {"ok": True}
 
 
 if __name__ == "__main__":

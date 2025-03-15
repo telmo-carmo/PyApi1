@@ -105,4 +105,4 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkZW1vIiwia
 GET {{host}}/api/bonus
 
 ###
-GET {{host}}/api/bonus/JONES5
+GET {{host}}/api/bonus/JONES
