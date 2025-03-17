@@ -24,7 +24,7 @@ PUT {{host}}/items/2
 Content-Type: application/json
 
 {
-    "id": 1,
+    "id": 2,
     "name": "joana",
     "price": 39.45,
     "is_offer": true
