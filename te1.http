@@ -1,4 +1,4 @@
-@host = http://localhost:8080
+@host = http://localhost:8000
 
 GET {{host}}/
 
@@ -20,7 +20,7 @@ GET {{host}}/items
 GET {{host}}/items/2
 
 ###
-PUT {{host}}/items/1
+PUT {{host}}/items/2
 Content-Type: application/json
 
 {
@@ -106,3 +106,30 @@ GET {{host}}/api/bonus
 
 ###
 GET {{host}}/api/bonus/JONES
+
+###
+POST {{host}}/api/bonus
+Content-Type: application/json
+
+{
+  "ename": "Zorro",
+  "job": "MANAGER",
+  "sal": 1234,
+  "comm": 100
+}
+
+###
+PUT {{host}}/api/bonus/Zorro
+Content-Type: application/json
+
+{
+  "ename": "Zorro",
+  "job": "MANAGER",
+  "sal": 5432,
+  "comm": 200
+}
+
+###
+DELETE {{host}}/api/bonus/Zorro
+
+###

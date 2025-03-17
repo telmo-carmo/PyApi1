@@ -36,13 +36,13 @@ from sqlalchemy import create_engine, Column, Float, String, Boolean, Integer
 from sqlalchemy.orm import sessionmaker, Session, declarative_base
 import jwt
 
-from models import ItemRequest, ItemResponse, LoginReq, LoginResp
+from models import ItemRequest, ItemResponse, LoginReq, LoginResp, BonusReq, BonusResp
 from applogger import logger
 
 load_dotenv()  # load values from .env file
 
 # Define database connection details (modify as needed)
-SQLALCHEMY_DATABASE_URL = os.getenv("DATABASE_URL", "sqlite:///./test.db")
+SQLALCHEMY_DATABASE_URL = os.getenv("DATABASE_URL", "sqlite:///./mydb1.db")
 
 JWT_SECRET_KEY = "0d73b71d9d865136056f7365160edcef0db2440e94f56ba4e7f613e2d5ef91d7"  # 256 bit sk
 JWT_ALGORITHM = "HS256"
@@ -51,7 +51,6 @@ UPLOAD_PATH = "C:/Uploads/Testes/" if platform.system() == "Windows"else "/tmp/T
 # Create engine and session maker
 engine = create_engine(SQLALCHEMY_DATABASE_URL)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
-
 # Base class for SQLAlchemy models
 Base = declarative_base()
 
@@ -79,7 +78,7 @@ class Item(Base):
 class Bonus(Base):
     __tablename__ = "bonus"
     ename = Column(String, primary_key=True, index=True)
-    job =   Column(String, )
+    job =   Column(String, nullable=True)
     sal =   Column(Integer)
     comm =  Column(Integer)
 
@@ -273,16 +272,16 @@ async def api_echo(request: Request):
     logger.info("Api Echo data:%s",data)
     return {"Echo": "FastAPI", "req": data }
 
-@app.get("/api/bonus")
+@app.get("/api/bonus", response_model=list[BonusResp])
 async def get_bonus(session: Session = Depends(get_session_db)):
     items = session.query(Bonus).all()
     logger.info(f"Bonus # {len(items)}")
     return items
 
-@app.get("/api/bonus/{item_id}")
-async def get_one_bonus(item_id: str, session: Session = Depends(get_session_db)):
+@app.get("/api/bonus/{item_id}",response_model=BonusResp)
+async def get_one_bonus(item_id: str, dbsession: Session = Depends(get_session_db)):
     logger.warning("get bonus id=%s",item_id)
-    item = session.query(Bonus).filter(Bonus.ename == item_id).first()
+    item = dbsession.query(Bonus).filter(Bonus.ename == item_id).first()
     if not item:
         logger.error("no item id=%d",item_id)
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"bonus ename={item_id} not found")
@@ -290,6 +289,7 @@ async def get_one_bonus(item_id: str, session: Session = Depends(get_session_db)
 
 @app.delete("/api/bonus/{item_id}", response_model=dict)
 def delete_bonus(item_id: str, db: Session = Depends(get_db)):
+    logger.warning("Delete bonus id=%s",item_id)
     db_item = db.query(Bonus).filter(Bonus.ename == item_id).first()
     if db_item is None:
         raise HTTPException(status_code=404, detail="Item not found")
@@ -298,8 +298,9 @@ def delete_bonus(item_id: str, db: Session = Depends(get_db)):
     db.commit()
     return {"ok": True}
 
-@app.put("/api/bonus/{item_id}", response_model=Bonus)
-def update_bonus(item_id: str, bitem: Bonus,db: Session = Depends(get_db)):
+@app.put("/api/bonus/{item_id}",response_model=BonusResp)
+def update_bonus(item_id: str, bitem: BonusReq, db: Session = Depends(get_db)):
+    logger.warning("Update bonus id=%s",item_id)
     db_item = db.query(Bonus).filter(Bonus.ename == item_id).first()
     if db_item is None:
         raise HTTPException(status_code=404, detail="Bonus not found")
@@ -307,14 +308,17 @@ def update_bonus(item_id: str, bitem: Bonus,db: Session = Depends(get_db)):
     db_item.sal = bitem.sal
     db_item.comm = bitem.comm
     db.commit()
+    db.refresh(db_item)
     return db_item
 
-@app.post("/api/bonus", response_model=Bonus)
-def create_bonus(item: Bonus, db: Session = Depends(get_db)):
+
+@app.post("/api/bonus", response_model=BonusResp)
+def create_bonus(item: BonusReq, db: Session = Depends(get_db)):
     db_item = Bonus(ename=item.ename, job=item.job, sal=item.sal, comm=item.comm)
     db.add(db_item)
     db.commit()
     db.refresh(db_item)
+    logger.warning("Created bonus id=%s",db_item.ename)
     return db_item
 
 
@@ -323,6 +327,6 @@ if __name__ == "__main__":
     import uvicorn
     #uvicorn.run("main:app", port=8000, log_level="info")
     
-    uvicorn.run(app,port=8080)
+    uvicorn.run(app,port=8000)
     ## run with https self signed cert:
     ##uvicorn.run(app, host="localhost", port=8083, ssl_certfile="server.crt", ssl_keyfile="server.key") # run in https mode

@@ -22,3 +22,13 @@ class LoginResp(BaseModel):
     token: str      | None
     error: str      | None
     username: Optional[str]   =  None
+
+
+class BonusResp(BaseModel):
+    ename:  str
+    job:    str
+    sal:    int
+    comm:   int
+
+class BonusReq(BonusResp):
+    pass
