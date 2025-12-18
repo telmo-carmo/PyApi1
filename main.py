@@ -5,7 +5,7 @@ https://pyjwt.readthedocs.io/en/latest/usage.html#registered-claim-names
 
 ---
 
-pip install -U fastapi uvicorn PyJWT Jinja2 python-multipart sqlalchemy psycopg2 python-dotenv
+pip install -U fastapi PyJWT Jinja2 python-multipart sqlalchemy psycopg2 python-dotenv
 
 --
 
@@ -46,7 +46,7 @@ SQLALCHEMY_DATABASE_URL = os.getenv("DATABASE_URL", "sqlite:///./mydb1.db")
 
 JWT_SECRET_KEY = "0d73b71d9d865136056f7365160edcef0db2440e94f56ba4e7f613e2d5ef91d7"  # 256 bit sk
 JWT_ALGORITHM = "HS256"
-UPLOAD_PATH = "C:/Uploads/Testes/" if platform.system() == "Windows"else "/tmp/Testes/"
+UPLOAD_PATH = "C:/Uploads/Testes/" if platform.system() == "Windows" else "/tmp/Testes/"
 
 # Create engine and session maker
 engine = create_engine(SQLALCHEMY_DATABASE_URL)
@@ -55,7 +55,7 @@ SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 Base = declarative_base()
 
 
-App_ver = 1.05
+App_ver = 1.125
 
 logger.info('App version %.2f with db: %s', App_ver,SQLALCHEMY_DATABASE_URL)
 ##----------
