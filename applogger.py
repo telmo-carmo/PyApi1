@@ -1,6 +1,30 @@
+'''
+
+from logging import basicConfig, getLogger
+from typing import Optional
+
+LOG_FORMAT = "%(asctime)s %(levelname)s %(message)s"
+LOG_DATE_FORMAT = "%Y-%m-%dT%H:%M:%SZ"
+
+def configure_logging(level: str) -> None:
+    basicConfig(format=LOG_FORMAT, datefmt=LOG_DATE_FORMAT, level=level)
+
+    
+-- In other py files:
+
+from logging import getLogger
+
+LOG = getLogger(__name__)
+
+   ...
+   LOG.warning("Could not read image ID for %s: %s", container.name, error)
+
+
+'''
+
 import logging
 from logging.handlers import TimedRotatingFileHandler
-
+##from typing import Optional
 
 ## config logging:
 log_formatter = logging.Formatter('%(asctime)s ; %(levelname)s ; %(message)s')
@@ -17,3 +41,7 @@ logger.setLevel(logging.DEBUG)
 
 logger.addHandler(console_handler)
 logger.addHandler(file_handler)
+
+# logging.basicConfig(level=logging.DEBUG, handlers=[console_handler, file_handler])
+# def get_logger(name: Optional[str] = None) -> logging.Logger:
+#     return logging.getLogger(name if name else "PyApi1")
