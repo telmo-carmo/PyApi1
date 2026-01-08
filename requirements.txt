@@ -1,20 +1,20 @@
 
-fastapi==0.125.0
-fastapi-cli==0.0.16
-Jinja2==3.1.6
-PyJWT==2.10.1
-python-dotenv==1.2.1
-python-multipart==0.0.20
-SQLAlchemy==2.0.45
+fastapi>=0.128.0
+fastapi-cli>=0.0.20
+Jinja2>=3.1.6
+PyJWT>=2.10.1
+python-dotenv>=1.2.1
+python-multipart>=0.0.21
+SQLAlchemy>=2.0.45
 
 
-#pydantic==2.10.6
-#pydantic_core==2.27.2
-#sqlmodel==0.0.27
+#pydantic>=2.12.5
+#pydantic_core>=2.27.2
+#sqlmodel>=0.0.31
 
 
-#pyodbc==5.3.0
-#cx_Oracle==8.3.0
-#psycopg2==2.9.11
+#pyodbc>=5.3.0
+#cx_Oracle>=8.3.0
+#psycopg2>=2.9.11
 
 
