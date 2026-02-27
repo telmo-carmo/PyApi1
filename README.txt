@@ -50,7 +50,6 @@ git config --global credential.helper manager
 
 AND for VS 2022 17.13 can do Git push must do this:
 
-
 git config --global  http.https://github.com.proxy http://proxy-vpn.glb.besp.dsp.gbes:8080
 
 ---

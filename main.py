@@ -29,6 +29,8 @@ from fastapi.responses import HTMLResponse
 from fastapi.security import HTTPBasic, HTTPBasicCredentials, OAuth2PasswordBearer
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
+#from fastapi.openapi.utils import get_openapi
+
 from dotenv import load_dotenv
 from typing import Optional, Union
 
@@ -55,12 +57,35 @@ SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 Base = declarative_base()
 
 
-App_ver = 1.125
+App_ver = 1.130
 
-logger.info('App version %.2f with db: %s', App_ver,SQLALCHEMY_DATABASE_URL)
+logger.info('App version %.3f with db: %s', App_ver,SQLALCHEMY_DATABASE_URL)
 ##----------
 
-app = FastAPI()
+app = FastAPI( )
+
+## This only forces the OpenAPI version in the generated schema, but it may not be fully compliant with 3.0.4 
+## FastAPI generates a different version 3.1 by default.
+# def custom_openapi():
+#     if app.openapi_schema:
+#         return app.openapi_schema
+
+#     openapi_schema = get_openapi(
+#         title=app.title,
+#         version=app.version,
+#         description=app.description,
+#         routes=app.routes,
+#     )
+
+#     # Force OpenAPI version
+#     openapi_schema["openapi"] = "3.0.4"
+
+#     app.openapi_schema = openapi_schema
+#     return app.openapi_schema
+
+# app.openapi = custom_openapi
+
+
 app.mount("/static", StaticFiles(directory="static"), name="static")
 templates = Jinja2Templates(directory="templates")
 

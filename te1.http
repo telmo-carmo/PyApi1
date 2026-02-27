@@ -80,7 +80,8 @@ Content-Type: application/json
 ###
 
 
-@tok1 = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkZW1vIiwiaWQiOjExLCJleHAiOjE3MzgxOTU0MjV9.sP5MFJL-IceVW51FGcnJdGBpy5WwGM1X6TcLrdjxR6Y
+@tok1 =  eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkZW1vIiwiaWQiOjExLCJleHAiOjE3NzIxODkwODZ9.NUxqZExwY3rJaZTxmwi1GkKbnoRWubsv03oxj81vcII
+
 
 
 POST  {{host}}/auth/chktoken
