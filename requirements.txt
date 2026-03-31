@@ -1,17 +1,17 @@
 
 
-fastapi>=0.129.0
-fastapi-cli>=0.0.23
+fastapi>=0.135.2
+fastapi-cli>=0.0.24
 Jinja2>=3.1.6
-PyJWT>=2.11.0
-python-dotenv>=1.2.1
+PyJWT>=2.12.1
+python-dotenv>=1.2.2
 python-multipart>=0.0.22
-SQLAlchemy>=2.0.46
-
+SQLAlchemy>=2.0.48
+uvicorn>=0.42.0
 
 #pydantic>=2.12.5
 #pydantic_core>=2.41.5
-#sqlmodel>=0.0.34
+#sqlmodel>=0.0.37
 
 
 #pyodbc>=5.3.0
