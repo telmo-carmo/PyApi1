@@ -84,7 +84,6 @@ Content-Type: application/json
 
 
 
-
 POST  {{host}}/auth/chktoken
 Content-Type: application/json
 
@@ -101,7 +100,8 @@ Authorization: Bearer {{tok1}}
 GET  {{host}}/random-int
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkZW1vIiwiaWQiOjExLCJleHAiOjE3MjU2MzcxMDV9.uv5RHssvY_8XPyZYpLzSwHA3P2rta35yRC3GpSPCiK8
 
-
+###
+GET {{host}}/api/bonus?skip=1&limit=3
 
 ###
 GET {{host}}/api/bonus

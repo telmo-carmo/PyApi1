@@ -298,8 +298,11 @@ async def api_echo(request: Request):
     return {"Echo": "FastAPI", "req": data }
 
 @app.get("/api/bonus", response_model=list[BonusResp])
-async def get_bonus(session: Session = Depends(get_session_db)):
-    items = session.query(Bonus).all()
+async def get_bonus(skip : int  = 0, limit : int = 0, session: Session = Depends(get_session_db)):
+    if limit > 0:
+        items = session.query(Bonus).offset(skip).limit(limit).all()
+    else:
+        items = session.query(Bonus).all()
     logger.info(f"Bonus # {len(items)}")
     return items
 
