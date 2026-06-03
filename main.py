@@ -46,7 +46,7 @@ load_dotenv()  # load values from .env file
 # Define database connection details (modify as needed)
 SQLALCHEMY_DATABASE_URL = os.getenv("DATABASE_URL", "sqlite:///./mydb1.db")
 
-JWT_SECRET_KEY = "0d73b71d9d865136056f7365160edcef0db2440e94f56ba4e7f613e2d5ef91d7"  # 256 bit sk
+JWT_SECRET_KEY = os.getenv("JWT_SECRET_KEY", "0d73b71d9d865136056f7365160edcef0db2440e94f56ba4e7f613e2d5ef91d7")  # 256 bit sk
 JWT_ALGORITHM = "HS256"
 UPLOAD_PATH = "C:/Uploads/Testes/" if platform.system() == "Windows" else "/tmp/Testes/"
 
@@ -57,7 +57,7 @@ SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 Base = declarative_base()
 
 
-App_ver = 1.130
+App_ver = 1.131
 
 logger.info('App version %.3f with db: %s', App_ver,SQLALCHEMY_DATABASE_URL)
 ##----------
