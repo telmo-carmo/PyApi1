@@ -200,9 +200,9 @@ def update_item(item_id: int, item: ItemRequest, session: Session = Depends(get_
     existing_it = session.query(Item).filter(Item.id == item_id).first()
     if not existing_it:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"Item {item_id} not found")
-    existing_it.name = item.name
-    existing_it.price = item.price
-    existing_it.is_offer = item.is_offer
+    existing_it.name = item.name        # pyright: ignore[reportAttributeAccessIssue]
+    existing_it.price = item.price      # pyright: ignore[reportAttributeAccessIssue]
+    existing_it.is_offer = item.is_offer    # pyright: ignore[reportAttributeAccessIssue]
     session.commit()
     return existing_it
 
@@ -332,9 +332,9 @@ def update_bonus(item_id: str, bitem: BonusReq, db: Session = Depends(get_db)):
     db_item = db.query(Bonus).filter(Bonus.ename == item_id).first()
     if db_item is None:
         raise HTTPException(status_code=404, detail="Bonus not found")
-    db_item.job = bitem.job
-    db_item.sal = bitem.sal
-    db_item.comm = bitem.comm
+    db_item.job = bitem.job     # pyright: ignore[reportAttributeAccessIssue]
+    db_item.sal = bitem.sal     # pyright: ignore[reportAttributeAccessIssue]
+    db_item.comm = bitem.comm   # pyright: ignore[reportAttributeAccessIssue]
     db.commit()
     db.refresh(db_item)
     return db_item
